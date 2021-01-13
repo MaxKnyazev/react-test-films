@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    height: 100vh;
+}
+
+header {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 5px solid rgb(255, 153, 0);
+    background-color: rgb(34, 34, 34);
+    height: 8vh;
+}
+
+header > nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60vw;
+}
+
+header > nav > ul {
+    display: flex;
+    justify-content: center;
+    margin-left: 4vw;
+}
+
+header > nav > svg {
+    /* height: 100%; */
+    width: 5vh;
+    color: rgb(255, 153, 0);
+}
+
+header > nav > ul > li {
+    list-style-type: none;
+    padding: 0 10px;
+}
+
+header > nav > ul > li > a {
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(231, 231, 231);
+    font-size: 20px;
+}
+
+header > nav > ul > li > a:hover {
+    color: rgb(255, 153, 0);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(241, 241, 241);
+    height: 92vh;
+}
+
+main > section {
+    max-width: 50vw;
+    background-color: rgb(255, 255, 255);
+    padding-right: 5vw;
+    padding-left: 5vw;
+}
+
+main > section > h1, main > p {
+    margin-top: 20px;
+    text-align: center;
+}
+
+main > section > h1 > span {
+    color: grey;
+    font-weight: 100;
+}
+
+main > section > ul {
+    padding-left: 20px;
+}
+
+main > section > div {
+    margin-top: 20px;
+    text-align: center;
+}
+
+main > section > div > img {
+    
+}
+
+main > section > ul > li {
+    /* padding-left: 30px; */
+    margin-left: 50px;
+}
+
+.title__h3 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
