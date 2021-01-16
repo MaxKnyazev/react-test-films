@@ -29,7 +29,6 @@ header > nav {
 header > nav > ul {
     display: flex;
     justify-content: center;
-    margin-left: 4vw;
 }
 
 header > nav > svg {
@@ -62,7 +61,7 @@ main {
 }
 
 main > section {
-    max-width: 50vw;
+    width: 50vw;
     background-color: rgb(255, 255, 255);
     padding-right: 5vw;
     padding-left: 5vw;
@@ -79,7 +78,7 @@ main > section > h1 > span {
 }
 
 main > section > ul {
-    padding-left: 20px;
+    /* padding-left: 20px; */
 }
 
 main > section > div {

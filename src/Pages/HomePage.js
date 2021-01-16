@@ -1,41 +1,50 @@
 import React, { useState, useEffect } from 'react';
-
-import { MOVIE_DB_GET } from '../config';
+import { NumericTextBox } from '@progress/kendo-react-inputs';
+import '@progress/kendo-theme-bootstrap/dist/all.css';
+import { MOVIE_DB_URL_FIRST, MOVIE_DB_URL_LAST } from '../config';
 
 const HomePage = () => {
-  // movie - react-состояние;
-  // setMovie - функция обновления react-состояния
   const [ movie, setMovie ] = useState(null);
-
+  const [ id, setId ] = useState(550);
+  const MOVIE_DB_GET = `${MOVIE_DB_URL_FIRST}${id}${MOVIE_DB_URL_LAST}`;
 
   useEffect(() => {
-    let cleanupFunction = false;
     const fetchData = async () => {
       try {
         const response = await fetch(MOVIE_DB_GET);
         const result = await response.json();
         console.log(result, 'result')
-
-        // непосредственное обновление состояния
-        if(!cleanupFunction) setMovie(result);
+        setMovie(result);
       } catch (e) {
         console.error(e.message)
       }
     };
-
     fetchData();
+  }, [id]);
 
-    // функция очистки useEffect
-    return () => cleanupFunction = true;
-  }, []);
+  const renderList = (list, title) =>
+    list ? (
+      <ul>
+        <h3 className='title__h3'>{title}: </h3>
+        {
+          list.map((item, index) => {
+            return (
+              <li key={index}>{item.name}</li>
+            )
+          })
+        }
+      </ul>
+    ) : null;
 
+  const inputHandler = (e) => {
+    setId(e.target.value);
+    console.log(MOVIE_DB_GET)
+  }
+  
   const descriptionMovie = () => {
     const {
       vote_average,
       vote_count,
-      original_title,
-      title,
-      id,
       overview,
       budget,
       production_companies,
@@ -44,50 +53,37 @@ const HomePage = () => {
 
     return (
       <>
-        <p><h3 className='title__h3'>Описание:</h3> {overview}</p>
-        <p><h3 className='title__h3'>Бюджет:</h3> {budget}</p>
+        <h3 className='title__h3'>Описание:</h3> {overview}
+        <h3 className='title__h3'>Бюджет: <span>{budget}</span></h3>
 
-        {
-          production_companies ? (
-            <ul>
-              <h3 className='title__h3'>Production company: </h3>
-              {
-                production_companies.map((item, index) => {
-                  return (
-                    <li key={index}>{item.name}</li>
-                  )
-                })
-              }
-            </ul>
-          ) : false
-        }
+        { renderList(production_companies, 'Production company') }
 
-        {
-          production_countries ? (
-            <ul>
-              <h3 className='title__h3'>Production country: </h3>
-              {
-                production_countries.map((item, index) => {
-                  return (
-                    <li key={index}>Продакшн страна: {item.name}</li>
-                  )
-                })
-              }
-            </ul>
-          ) : false
-        }
+        { renderList(production_countries, 'Production country') }
       </>
     )
   };
 
+  const posterUrl = movie ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '';
+
   return (
     <main>
       <section>
+
+      <label>
+        <NumericTextBox
+            placeholder="please enter value"
+            value={id}
+            onChange={inputHandler}
+        />
+      </label>
+        
       {
-        movie ? <h1>{movie.title} <span><i>(ориг. {movie.original_title})</i></span></h1> : null
+        movie ? <h1>{movie.title} <span><i>(ориг. {movie.original_title})({movie.id})</i></span></h1> : null
       }
 
-      <div><img src='https://image.tmdb.org/t/p/w200/66RvLrRJTm4J8l3uHXWF09AICol.jpg'></img></div>
+      <div>
+        <img alt='Poster' src={posterUrl}></img>
+      </div>
 
       {
         movie ? descriptionMovie() : false
